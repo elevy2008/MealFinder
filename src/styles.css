@@ -16,17 +16,18 @@ body {
 
 .map-container {
     flex: 1;
-    height: 100%;
+    height: calc(100% - 40px);  /* Subtract header height */
+    margin-top: 40px;  /* Add header height */
     width: 100%;
     z-index: 1;
 }
 
 .location-list {
     position: absolute;
-    top: 20px;
+    top: 60px;  /* Header height + spacing */
     right: 20px;
     width: 300px;
-    max-height: calc(100vh - 40px);
+    max-height: calc(100vh - 80px);  /* Account for header and spacing */
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -186,20 +187,23 @@ body {
     }
 }
 
-.app-header {
-    background-color: white;
-    padding: 3px 15px; /* Reduced padding for a thinner header */
-    border-bottom: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    height: 70px;
-  }
-  
-  .header-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: blue;
-    margin: 0;
-  }
+@media (max-width: 768px) {
+    .location-list {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: auto;
+        width: 100%;
+        max-height: 40vh;
+        border-radius: 16px 16px 0 0;
+        margin: 0;
+    }
+
+    .map-container {
+        height: calc(100% - 40px);  /* Subtract header height */
+        margin-top: 40px;  /* Add header height */
+    }
+}
   
   

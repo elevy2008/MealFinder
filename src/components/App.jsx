@@ -81,7 +81,14 @@ function App() {
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
       <AppHeader />
-      <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
+      <MapContainer 
+        center={center} 
+        zoom={13} 
+        style={{ 
+          height: 'calc(100% - 40px)', 
+          width: '100%',
+          marginTop: '40px'  // Match header height
+        }}>
         <ChangeView center={center} />
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
