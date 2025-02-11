@@ -33,7 +33,7 @@ function ChangeView({ center }) {
 
 function App() {
   const [userLocation, setUserLocation] = useState(null);
-  const [isAccordionVisible, setIsAccordionVisible] = useState(true);
+
   const [center, setCenter] = useState({ lat: 40.7128, lng: -74.0060 });
   const [sortedLocations, setSortedLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -81,12 +81,10 @@ function App() {
 
   return (
     <>
-      {isAccordionVisible && (
-        <div style={{ position: 'absolute', right: '10px', top: '10px', width: '300px' }}>
-          <AccordionList locations={sortedLocations} isLoading={isLoading} onViewMap={handleViewMap} />
-        </div>
-      )}
-      <HamburgerMenu onClick={() => setIsAccordionVisible(!isAccordionVisible)} isOpen={isAccordionVisible} />
+      <div style={{ position: 'absolute', right: '10px', top: '10px', width: '300px' }}>
+        <AccordionList locations={sortedLocations} isLoading={isLoading} onViewMap={handleViewMap} />
+      </div>
+      <HamburgerMenu onClick={() => {}} isOpen={true} />
 
       <div style={{ position: 'relative', height: '100vh' }}>
         <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>

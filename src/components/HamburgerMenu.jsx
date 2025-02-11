@@ -4,7 +4,7 @@ const HamburgerMenu = ({ onClick, isOpen }) => {
   const style = {
     position: 'absolute',
     top: '20px',
-    right: '330px', // Position it to the left of the accordion
+    left: '20px', // Position it on the left side of the screen
     zIndex: 1000,
     background: 'white',
     padding: '10px',
