@@ -81,10 +81,13 @@ function App() {
 
   return (
     <>
-      <div style={{ position: 'absolute', right: '10px', top: '10px', width: '300px' }}>
-        <AccordionList locations={sortedLocations} isLoading={isLoading} onViewMap={handleViewMap} />
+      <div className="map-overlay" />
+      <div className="app-layout">
+        <div className="sidebar-container">
+          <AccordionList locations={sortedLocations} isLoading={isLoading} onViewMap={handleViewMap} />
+        </div>
+        <HamburgerMenu onClick={() => {}} isOpen={true} />
       </div>
-      <HamburgerMenu onClick={() => {}} isOpen={true} />
 
       <div style={{ position: 'relative', height: '100vh' }}>
         <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
