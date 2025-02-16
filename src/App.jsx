@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
+import Modal from 'react-modal';
 import 'leaflet/dist/leaflet.css';
 import AccordionList from './components/AccordionList';
 import HamburgerMenu from './components/HamburgerMenu';
@@ -60,6 +61,25 @@ function App() {
   const [sortedLocations, setSortedLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState(true);
+
+  const modalStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      maxWidth: '500px',
+      padding: '20px',
+      borderRadius: '8px'
+    },
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.75)',
+      zIndex: 2000
+    }
+  };
 
   const setDefaultLocation = () => {
     if (navigator.geolocation) {
@@ -103,6 +123,37 @@ function App() {
 
   return (
     <>
+      <Modal
+        isOpen={isWelcomeModalOpen}
+        onRequestClose={() => setIsWelcomeModalOpen(false)}
+        style={modalStyles}
+        contentLabel="Welcome to MealFinder"
+      >
+        <h2 style={{ marginTop: 0 }}>Welcome to MealFinder!</h2>
+        <p>Here's how to use the app:</p>
+        <ul>
+          <li>The map shows all available food truck locations</li>
+          <li>Your current location is used to find the nearest trucks</li>
+          <li>Click the hamburger menu (☰) to access About, FAQs, and Contact info</li>
+          <li>Use the location list on the right to see details about each truck</li>
+          <li>Click "View on Map" to center the map on a specific location</li>
+          <li>Use the "Center to My Location" button to return to your position</li>
+        </ul>
+        <button
+          onClick={() => setIsWelcomeModalOpen(false)}
+          style={{
+            background: '#4285F4',
+            color: 'white',
+            border: 'none',
+            padding: '10px 20px',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            marginTop: '10px'
+          }}
+        >
+          Got it!
+        </button>
+      </Modal>
       <HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)} isOpen={isMenuOpen} />
       <MenuContent isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       
