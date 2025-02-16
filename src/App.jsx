@@ -28,18 +28,69 @@ function ChangeView({ center }) {
   return null;
 }
 
+function CenterMapButton({ userLocation }) {
+  const map = useMap();
+  
+  if (!userLocation) return null;
+
+  return (
+    <button
+      onClick={() => map.setView([userLocation.lat, userLocation.lng], map.getZoom())}
+      style={{
+        position: 'absolute',
+        bottom: '20px',
+        right: '20px',
+        zIndex: 1000,
+        padding: '10px',
+        backgroundColor: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+        cursor: 'pointer'
+      }}
+    >
+      Center to My Location
+    </button>
+  );
+}
+
 function App() {
+  const [userLocation, setUserLocation] = useState(null);
   const [center, setCenter] = useState({ lat: 40.7128, lng: -74.0060 });
   const [sortedLocations, setSortedLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const setDefaultLocation = () => {
-    const defaultLocation = { lat: 40.7128, lng: -74.0060 };
-    setCenter(defaultLocation);
-    const sorted = sortLocationsByDistance(remainingLocations, defaultLocation);
-    setSortedLocations(sorted);
-    setIsLoading(false);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const newLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          setUserLocation(newLocation);
+          setCenter(newLocation);
+          const sorted = sortLocationsByDistance(remainingLocations, newLocation);
+          setSortedLocations(sorted);
+          setIsLoading(false);
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+          const defaultLocation = { lat: 40.7128, lng: -74.0060 };
+          setCenter(defaultLocation);
+          const sorted = sortLocationsByDistance(remainingLocations, defaultLocation);
+          setSortedLocations(sorted);
+          setIsLoading(false);
+        }
+      );
+    } else {
+      const defaultLocation = { lat: 40.7128, lng: -74.0060 };
+      setCenter(defaultLocation);
+      const sorted = sortLocationsByDistance(remainingLocations, defaultLocation);
+      setSortedLocations(sorted);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -62,6 +113,7 @@ function App() {
       <div style={{ position: 'relative', height: '100vh', zIndex: 1 }}>
         <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
           <ChangeView center={center} />
+          <CenterMapButton userLocation={userLocation} />
           <TileLayer
             url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
