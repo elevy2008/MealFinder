@@ -12,15 +12,13 @@ const HamburgerMenu = ({ onClick, isOpen }) => {
     cursor: 'pointer',
     boxShadow: '0 2px 6px rgba(0, 0, 0, 0.1)',
     border: 'none',
-    display: 'flex',
+    display: isOpen ? 'none' : 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     width: '40px',
     height: '40px'
   };
-
-  if (isOpen) return null;
   
   return (
     <button 
