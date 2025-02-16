@@ -20,6 +20,8 @@ const HamburgerMenu = ({ onClick, isOpen }) => {
     height: '40px'
   };
 
+  if (isOpen) return null;
+  
   return (
     <button 
       style={style} 
