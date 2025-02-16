@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import AccordionList from './components/AccordionList';
 import HamburgerMenu from './components/HamburgerMenu';
 import MenuContent from './components/MenuContent';
-import WelcomePopup from './components/WelcomePopup';
+import Dialog from './components/Dialog';
 import { sortLocationsByDistance } from './utils/sortLocations';
 import { remainingLocations } from './data/remaining_locations';
 
@@ -107,10 +107,35 @@ function App() {
 
   return (
     <>
-      <WelcomePopup 
+      <Dialog
         isOpen={isWelcomeModalOpen}
         onClose={() => setIsWelcomeModalOpen(false)}
-      />
+        title="Welcome to MealFinder!"
+        description="Here's how to use the app:"
+      >
+        <ul>
+          <li>The map shows all available food truck locations</li>
+          <li>Your current location is used to find the nearest trucks</li>
+          <li>Click the hamburger menu (☰) to access About, FAQs, and Contact info</li>
+          <li>Use the location list on the right to see details about each truck</li>
+          <li>Click "View on Map" to center the map on a specific location</li>
+          <li>Use the "Center to My Location" button to return to your position</li>
+        </ul>
+        <button
+          onClick={() => setIsWelcomeModalOpen(false)}
+          style={{
+            background: '#4285F4',
+            color: 'white',
+            border: 'none',
+            padding: '10px 20px',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            marginTop: '10px'
+          }}
+        >
+          Got it!
+        </button>
+      </Dialog>
       <HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)} isOpen={isMenuOpen} />
       <MenuContent isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       
