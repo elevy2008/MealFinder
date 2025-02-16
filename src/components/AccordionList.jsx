@@ -14,33 +14,16 @@ const AccordionList = ({ locations, isLoading, onViewMap }) => {
   };
 
   const contentStyle = {
-    maxHeight: isExpanded ? 'calc(100vh - 200px)' : '0',
+    maxHeight: isExpanded ? '80vh' : '0',
     overflow: 'hidden',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    transition: 'all 0.3s ease',
     overflowY: isExpanded ? 'auto' : 'hidden',
-    WebkitOverflowScrolling: 'touch',
-    position: 'relative',
-    zIndex: 1,
-    transform: isExpanded ? 'translateY(0)' : 'translateY(-10px)',
-    opacity: isExpanded ? 1 : 0,
-  };
-
-  const contentContainerStyle = {
-    padding: isExpanded ? '10px' : '0 10px',
-    transition: 'padding 0.3s ease',
   };
 
   return (
-    <div
-      style={accordionStyle}
-      role="region"
-      aria-label="Food truck locations list"
-    >
-      <div
+    <div style={accordionStyle}>
+      <div 
         onClick={() => setIsExpanded(!isExpanded)}
-        role="button"
-        aria-expanded={isExpanded}
-        tabIndex={0}
         style={{
           padding: '15px',
           backgroundColor: '#f8f9fa',
@@ -48,34 +31,23 @@ const AccordionList = ({ locations, isLoading, onViewMap }) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          borderBottom: isExpanded ? '1px solid #dee2e6' : 'none',
         }}
       >
-        <h2 style={{ margin: 0, fontSize: '1.25rem', color: '#212529' }}>Food Truck Locations</h2>
-        <span style={{
-          transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-          transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          fontSize: '20px',
-          color: '#495057',
-        }} aria-hidden="true">▼</span>
+        <h2 style={{ margin: 0 }}>Food Truck Locations</h2>
+        <span>{isExpanded ? '▼' : '▲'}</span>
       </div>
       <div style={contentStyle}>
-        <div style={contentContainerStyle}>
-          {isLoading ? (
-            <p style={{ textAlign: 'center', padding: '20px' }}>Loading locations...</p>
-          ) : (
-            locations.map((location, index) => (
-              <LocationCard
-                key={index}
-                location={location}
-                distance={location.distance.toFixed(1)}
-                duration={Math.round(location.distance / 3.1 * 60) + 8}
-                isClose={location.isClose}
-                onViewMap={onViewMap}
-              />
-            ))
-          )}
-        </div>
+        {isLoading ? (
+          <p style={{ textAlign: 'center', padding: '20px' }}>Loading locations...</p>
+        ) : (
+          locations.map((location, index) => (
+            <LocationCard
+              key={index}
+              location={location}
+              onViewMap={onViewMap}
+            />
+          ))
+        )}
       </div>
     </div>
   );

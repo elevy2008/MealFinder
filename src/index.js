@@ -8,6 +8,9 @@ import GeolocationErrorBoundary from './components/GeolocationErrorBoundary';
 // Initialize ReactModal
 Modal.setAppElement('#root');
 
+// Ensure location permission is requested before map loads
+Modal.defaultStyles.overlay.zIndex = 2000;
+
 const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

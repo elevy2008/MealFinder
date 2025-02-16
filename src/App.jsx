@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import AccordionList from './components/AccordionList';
+import HamburgerMenu from './components/HamburgerMenu';
 import { sortLocationsByDistance } from './utils/sortLocations';
 import { remainingLocations } from './data/remaining_locations';
 
@@ -27,33 +28,36 @@ function ChangeView({ center }) {
 }
 
 function App() {
-  const [userLocation, setUserLocation] = useState(null);
+  // No need to track user location since we're not showing location-dependent features
   const [center, setCenter] = useState({ lat: 40.7128, lng: -74.0060 });
   const [sortedLocations, setSortedLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      setIsLoading(true);
+  const setDefaultLocation = () => {
+    const defaultLocation = { lat: 40.7128, lng: -74.0060 };
+    setCenter(defaultLocation);
+    const sorted = sortLocationsByDistance(remainingLocations, defaultLocation);
+    setSortedLocations(sorted);
+    setIsLoading(false);
+  };
+
+  const handleLocationPermission = (granted) => {
+    setIsLoading(true);
+    if (granted && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const newUserLocation = {
+          const newLocation = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
-          setUserLocation(newUserLocation);
-          setCenter(newUserLocation);
-          const sorted = sortLocationsByDistance(remainingLocations, newUserLocation);
+          setCenter(newLocation);
+          const sorted = sortLocationsByDistance(remainingLocations, newLocation);
           setSortedLocations(sorted);
           setIsLoading(false);
         },
-        (error) => {
-          console.error("Error getting location:", error);
-          const defaultLocation = { lat: 40.7128, lng: -74.0060 };
-          setUserLocation(defaultLocation);
-          const sorted = sortLocationsByDistance(remainingLocations, defaultLocation);
-          setSortedLocations(sorted);
-          setIsLoading(false);
+        () => {
+          console.error("Error getting location");
+          setDefaultLocation();
         },
         {
           enableHighAccuracy: true,
@@ -61,7 +65,13 @@ function App() {
           maximumAge: 30000
         }
       );
+    } else {
+      setDefaultLocation();
     }
+  };
+
+  useEffect(() => {
+    setDefaultLocation();
   }, []);
 
   const handleViewMap = (location) => {
@@ -70,6 +80,8 @@ function App() {
 
   return (
     <>
+      <HamburgerMenu onLocationPermission={handleLocationPermission} />
+      
       <div style={{ position: 'fixed', right: '20px', top: '20px', width: '300px', zIndex: 1001 }}>
         <AccordionList locations={sortedLocations} isLoading={isLoading} onViewMap={handleViewMap} />
       </div>
@@ -81,13 +93,6 @@ function App() {
             url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           />
-          {userLocation && (
-            <Circle
-              center={[userLocation.lat, userLocation.lng]}
-              radius={500}
-              pathOptions={{ color: '#4285F4', fillColor: '#4285F4', fillOpacity: 0.2 }}
-            />
-          )}
           {sortedLocations.map((location, index) => (
             <Marker key={index} position={[location.lat, location.lng]}>
               <Popup>
@@ -95,9 +100,6 @@ function App() {
                   <h3>{location.Location}</h3>
                   <p>Time: {location.Time}</p>
                   <p>Route: {location.Route}</p>
-                  {userLocation && (
-                    <p>Distance: {sortLocationsByDistance([location], userLocation)[0].distance.toFixed(1)} miles</p>
-                  )}
                   <a href={location.link} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
                 </div>
               </Popup>
