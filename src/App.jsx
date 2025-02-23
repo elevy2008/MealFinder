@@ -70,10 +70,10 @@ function CenterMapButton({ userLocation }) {
     <button
       onClick={() => map.setView([userLocation.lat, userLocation.lng], 13)}
       style={{
-        position: 'absolute',
-        top: '71px',
+        position: 'fixed',
+        top: '180px', // Moved further below filter
         left: '20px',
-        zIndex: 1000,
+        zIndex: 998, // Below menu but above map
         padding: '10px',
         backgroundColor: 'white',
         border: 'none',
