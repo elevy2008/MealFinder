@@ -5,17 +5,10 @@ import 'leaflet/dist/leaflet.css';
 import AccordionList from './components/AccordionList';
 import HamburgerMenu from './components/HamburgerMenu';
 import MenuContent from './components/MenuContent';
-import TypeFilter from './components/TypeFilter';
 import { sortLocationsByDistance } from './utils/sortLocations';
 import { remainingLocations } from './data/remaining_locations';
 import { pantryLocations } from './data/pantry_locations';
-import ReactModal from 'react-modal';
 import * as Dialog from '@radix-ui/react-dialog';
-
-
-
-// Set the app element for accessibility
-ReactModal.setAppElement('#root');
 
 // Marker icons
 const DefaultIcon = L.icon({
@@ -167,8 +160,16 @@ function App() {
 
   return (
     <>
-       <HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)} isOpen={isMenuOpen} />
-<MenuContent isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      {/* Menu Components */}
+      <HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)} isOpen={isMenuOpen} />
+      <MenuContent 
+        isOpen={isMenuOpen} 
+        onClose={() => setIsMenuOpen(false)} 
+        selectedTypes={selectedTypes} 
+        onTypeSelect={handleTypeFilter} 
+      />
+      
+      {/* Welcome Modal */}
 
 
       {/* Welcome Popup (Appears on App Load) */}
@@ -210,16 +211,6 @@ function App() {
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
-      <ReactModal 
-        isOpen={isMenuOpen}
-        onRequestClose={toggleMenu}
-        contentLabel="Menu"
-      >
-
-        <MenuContent onClose={toggleMenu} />
-      </ReactModal>
-
-      <TypeFilter selectedTypes={selectedTypes} onTypeSelect={handleTypeFilter} />
       
       <div style={{ position: 'fixed', right: '20px', top: '20px', width: '300px', zIndex: 1001 }}>
         <AccordionList 

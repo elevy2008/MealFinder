@@ -3,10 +3,6 @@ import React from 'react';
 const TypeFilter = ({ selectedTypes, onTypeSelect }) => {
   return (
     <div style={{ 
-      position: 'fixed', 
-      top: '80px', // Moved below hamburger menu
-      left: '20px', 
-      zIndex: 998, // Below menu but above map
       backgroundColor: 'white',
       padding: '10px',
       borderRadius: '4px',

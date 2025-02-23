@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import TypeFilter from './TypeFilter';
 
-const MenuContent = ({ isOpen, onClose }) => {
+const MenuContent = ({ isOpen, onClose, selectedTypes, onTypeSelect }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState("");
@@ -26,7 +27,7 @@ const MenuContent = ({ isOpen, onClose }) => {
       padding: '20px',
       transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
       transition: 'transform 0.3s ease-in-out',
-      zIndex: 999
+      zIndex: 1003 // Below hamburger but above other components
     }}>
       <h2 style={{ marginTop: '60px', marginBottom: '20px' }}>MealFinder</h2>      
 
@@ -92,6 +93,12 @@ const MenuContent = ({ isOpen, onClose }) => {
         Contact
       </div>
 
+      {/* Type Filter */}
+      <div style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>
+        <h3 style={{ marginBottom: '10px' }}>Filter Locations</h3>
+        <TypeFilter selectedTypes={selectedTypes} onTypeSelect={onTypeSelect} />
+      </div>
+
       {/* Close Menu Button */}
       <button 
         onClick={onClose}
@@ -118,7 +125,7 @@ const MenuContent = ({ isOpen, onClose }) => {
               backgroundColor: 'rgba(0, 0, 0, 0.5)',
               position: 'fixed',
               inset: 0,
-              zIndex: 1000
+              zIndex: 1004 // Above all components
             }} />
             <Dialog.Content style={{
               position: 'fixed',
@@ -132,7 +139,7 @@ const MenuContent = ({ isOpen, onClose }) => {
               maxHeight: '500px', // Ensures content fits
               textAlign: 'left',
               boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-              zIndex: 1001,
+              zIndex: 1005, // Above overlay
               overflowY: 'auto' // Enables scrolling for long content
             }}>
               <Dialog.Title>{modalTitle}</Dialog.Title>
