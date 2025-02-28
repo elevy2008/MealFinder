@@ -7,7 +7,6 @@ const HamburgerMenu = ({ onClick, isOpen }) => {
     left: '20px',
     zIndex: 1000,
     background: 'white',
-    bordercolor: 'black',
     padding: '10px',
     borderRadius: '4px',
     cursor: 'pointer',
@@ -18,12 +17,8 @@ const HamburgerMenu = ({ onClick, isOpen }) => {
     justifyContent: 'center',
     alignItems: 'center',
     width: '40px',
-    height: '40px',
-    bordercolor: 'black',
-
+    height: '40px'
   };
-
-  
   
   return (
     <button 
@@ -36,6 +31,5 @@ const HamburgerMenu = ({ onClick, isOpen }) => {
     </button>
   );
 };
-
 
 export default HamburgerMenu;

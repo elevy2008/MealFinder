@@ -13,6 +13,7 @@ const LocationCard = ({ location, distance, duration, isClose, onViewMap }) => {
   return (
     <div style={cardStyle} className="location-card">
       <h3>{location.Location}</h3>
+      <p>Type: {location.type === 'food_truck' ? 'Food Truck' : location.type === 'pantry' ? 'Food Pantry' : 'Shelter'}</p>
       <p>Time: {location.Time}</p>
       <p>Route: {location.Route}</p>
       <p>Distance: {distance} miles</p>

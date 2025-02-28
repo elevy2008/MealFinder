@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import ToggleSwitch from './ToggleSwitch';
 
-const AppHeader = () => {
+const AppHeader = ({ mode, setMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(
     typeof window !== 'undefined' ? window.innerWidth <= 768 : false
@@ -49,7 +50,10 @@ const AppHeader = () => {
               <span style={{ width: '20px', height: '2px', backgroundColor: '#333', display: 'block' }}></span>
               <span style={{ width: '20px', height: '2px', backgroundColor: '#333', display: 'block' }}></span>
             </button>
-            <h1 style={{ margin: '0 0 0 12px', fontSize: '1.2rem', color: 'blue' }}>MealFindr</h1>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '12px' }}>
+              <ToggleSwitch mode={mode} setMode={setMode} />
+              <h1 style={{ margin: '0', fontSize: '1.2rem', color: 'blue' }}>MealFindr</h1>
+            </div>
           </div>
 
           <div
@@ -146,9 +150,12 @@ const AppHeader = () => {
               <a href="/contact" style={{ textDecoration: 'none', color: '#007BFF', fontSize: '0.9rem' }}>Contact</a>
             </nav>
           </div>
-          
-          <h1 style={{ margin: 0, fontSize: '1.5rem', color: 'blue' }}>MealFindr</h1>
-          
+
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <ToggleSwitch mode={mode} setMode={setMode} />
+            <h1 style={{ margin: 0, fontSize: '1.5rem', color: 'blue' }}>MealFindr</h1>
+          </div>
+
           <div style={{ width: '200px' }} />
         </div>
       )}
@@ -157,4 +164,3 @@ const AppHeader = () => {
 };
 
 export default AppHeader;
-

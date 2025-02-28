@@ -5,12 +5,15 @@ const AccordionList = ({ locations, isLoading, onViewMap }) => {
   const [isExpanded, setIsExpanded] = useState(true);
 
   const accordionStyle = {
-    width: '100%',
+    width: '93%',
+    height: '90%',
     backgroundColor: 'white',
     borderRadius: '8px',
     overflow: 'hidden',
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
     transition: 'margin 0.3s ease',
+    right: '0px',
+    
   };
 
   const contentStyle = {
@@ -20,6 +23,7 @@ const AccordionList = ({ locations, isLoading, onViewMap }) => {
     overflowY: isExpanded ? 'auto' : 'hidden',
     WebkitOverflowScrolling: 'touch',
     position: 'relative',
+    right: 0,
     zIndex: 1,
     transform: isExpanded ? 'translateY(0)' : 'translateY(-10px)',
     opacity: isExpanded ? 1 : 0,
@@ -51,7 +55,7 @@ const AccordionList = ({ locations, isLoading, onViewMap }) => {
           borderBottom: isExpanded ? '1px solid #dee2e6' : 'none',
         }}
       >
-        <h2 style={{ margin: 0, fontSize: '1.25rem', color: '#212529' }}>Food Truck Locations</h2>
+        <h2 style={{ margin: 0, fontSize: '1.25rem', color: '#212529' }}>Locations</h2>
         <span style={{
           transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
           transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',

@@ -30,6 +30,18 @@
     "style-loader": "^3.3.3",
     "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^4.15.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@react-google-maps/api": "^2.19.2",
+    "@react-leaflet/core": "2.1.0",
+    "framer-motion": "^10.15.1",
+    "leaflet": "^1.9.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
+    "react-modal": "^3.16.3",
+    "react-scripts": "5.0.1"
   }
 }

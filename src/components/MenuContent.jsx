@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import ToggleSwitch from './ToggleSwitch';
 
-const MenuContent = ({ isOpen, onClose }) => {
+const MenuContent = ({ isOpen, onClose, mode, setMode }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState("");
@@ -29,6 +30,11 @@ const MenuContent = ({ isOpen, onClose }) => {
       zIndex: 999
     }}>
       <h2 style={{ marginTop: '60px', marginBottom: '20px' }}>MealFinder</h2>      
+
+      {/* Toggle Switch */}
+      <div style={{ marginBottom: '20px' }}>
+        <ToggleSwitch mode={mode} setMode={setMode} />
+      </div>
 
       {/* Ethan Levy Popup Trigger */}
       <div 
@@ -90,6 +96,14 @@ const MenuContent = ({ isOpen, onClose }) => {
         style={{ padding: '10px 0', borderBottom: '1px solid #eee', cursor: 'pointer' }} 
         onClick={() => handleItemClick("Contact", "Contact us at: ethanjonathanlevy@gmail.com")}>
         Contact
+      </div>
+      <div 
+        style={{ padding: '10px 0', borderBottom: '1px solid #eee', cursor: 'pointer' }} 
+        onClick={() => handleItemClick("FAQs", 
+        `Below are links to places you can donate to. Many of these locations are featured on the map. Thank you for your support. This is a team effort
+        xyz
+        xyz `)}>
+        Help/Donate Now
       </div>
 
       {/* Close Menu Button */}
