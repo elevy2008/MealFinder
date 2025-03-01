@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TypeFilter = ({ selectedTypes = ['food_truck'], onTypeSelect, mode }) => {
+const TypeFilter = ({ selectedTypes = mode === 'need-help' ? ['food_truck'] : [], onTypeSelect, mode }) => {
   // Render different filters based on mode
   const renderNeedHelpFilters = () => (
     <>
@@ -58,25 +58,32 @@ const TypeFilter = ({ selectedTypes = ['food_truck'], onTypeSelect, mode }) => {
             type="checkbox"
             checked={selectedTypes.includes('support')}
             onChange={() => onTypeSelect('support')}
-          /> Support Services ⚪
+          /> Support Services (Long-Term Shelters) ⚪
         </label>
         <label style={{ display: 'block' }}>
           <input 
             type="checkbox"
             checked={selectedTypes.includes('community')}
             onChange={() => onTypeSelect('community')}
-          /> Community Resources 🟠
+          /> Community Resources (Short-Term Shelters) 🟠
         </label>
       </div>
     </>
   );
 
+  // Set initial selected types based on mode
+  React.useEffect(() => {
+    if (mode === 'need-help') {
+      onTypeSelect('food_truck');
+    }
+  }, [mode]);
+
   return (
     <div style={{ 
         position: 'fixed',
-        top: '80px', // Moved further below filter
+        top: '80px',
         left: '20px',
-        zIndex: 998, // Below menu but above map
+        zIndex: 998,
         backgroundColor: 'white',
         padding: '10px',
         borderRadius: '4px',
