@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TypeFilter = ({ selectedTypes = mode === 'need-help' ? ['food_truck'] : [], onTypeSelect, mode }) => {
+const TypeFilter = ({ selectedTypes = [], onTypeSelect, mode }) => {
   // Render different filters based on mode
   const renderNeedHelpFilters = () => (
     <>
@@ -74,7 +74,8 @@ const TypeFilter = ({ selectedTypes = mode === 'need-help' ? ['food_truck'] : []
   // Set initial selected types based on mode
   React.useEffect(() => {
     if (mode === 'need-help') {
-      onTypeSelect('food_truck');
+      // Reset to only food trucks
+      onTypeSelect(['food_truck']);
     }
   }, [mode]);
 

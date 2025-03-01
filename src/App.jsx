@@ -149,7 +149,7 @@ function App() {
   const [userLocation, setUserLocation] = useState(null);
   const [center, setCenter] = useState({ lat: 40.7128, lng: -74.0060 });
   const [sortedLocations, setSortedLocations] = useState([]);
-  const [selectedTypes, setSelectedTypes] = useState(['food_truck', 'pantry', 'shelter']);
+  const [selectedTypes, setSelectedTypes] = useState(['food_truck']);
   const [helpSelectedTypes, setHelpSelectedTypes] = useState(['volunteer', 'donation', 'advocacy', 'support', 'community']);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(true);
@@ -159,13 +159,21 @@ function App() {
 
   const handleTypeFilter = (type) => {
     if (mode === 'need-help') {
-      setSelectedTypes(prev => 
-        prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
-      );
+      if (Array.isArray(type)) {
+        setSelectedTypes(type);
+      } else {
+        setSelectedTypes(prev => 
+          prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+        );
+      }
     } else {
-      setHelpSelectedTypes(prev => 
-        prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
-      );
+      if (Array.isArray(type)) {
+        setHelpSelectedTypes(type);
+      } else {
+        setHelpSelectedTypes(prev => 
+          prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+        );
+      }
     }
   };
 
