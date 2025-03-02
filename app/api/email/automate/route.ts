@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
-import { shouldSendEmail, prepareEmailData } from "@/lib/email-scheduler"
+// Import directly from the file path
+import { shouldSendEmail, prepareEmailData } from "../../../lib/email-scheduler.js"
 
 // Mock function to get all user emails - in a real app, this would fetch from a database
 async function getAllUserEmails() {
