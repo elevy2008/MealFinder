@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import nodemailer from "nodemailer"
-import { renderEmailTemplate, EmailFormat } from "../../../lib/email-renderer"
+import { renderEmailTemplate, EmailFormat } from "@/lib/email-renderer"
 
 // Configure nodemailer with the environment variables
 const transporter = nodemailer.createTransport({

@@ -1,4 +1,4 @@
-import { getUserByEmail, getEmailPreferenceByUserId, getStocksByUserId } from "./db"
+import { getUserByEmail, getEmailPreferenceByUserId, getStocksByUserId } from "@/lib/db"
 
 // Mock function to get stock data - in a real app, this would fetch from an API
 async function getStockData(tickers: string[]) {
