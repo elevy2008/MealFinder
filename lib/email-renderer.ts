@@ -1,7 +1,7 @@
 import ReactDOMServer from "react-dom/server"
-import { DetailedEmailTemplate } from "@/components/email/detailed-template"
-import { SummaryEmailTemplate } from "@/components/email/summary-template"
-import { MinimalEmailTemplate } from "@/components/email/minimal-template"
+import { DetailedEmailTemplate } from "../components/email/detailed-template"
+import { SummaryEmailTemplate } from "../components/email/summary-template"
+import { MinimalEmailTemplate } from "../components/email/minimal-template"
 
 export type EmailFormat = "detailed" | "summary" | "minimal"
 
