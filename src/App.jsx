@@ -224,6 +224,10 @@ function App() {
 
   const handleViewMap = (location) => {
     setCenter({ lat: parseFloat(location.lat), lng: parseFloat(location.lng) });
+    // Force map to zoom to location
+    if (mapRef.current) {
+      mapRef.current.setView([parseFloat(location.lat), parseFloat(location.lng)], 16);
+    }
   };
 
   const closeModal = () => {
@@ -282,6 +286,9 @@ function App() {
     }
   };
 
+  // Add map reference
+  const mapRef = React.useRef();
+
   return (
     <>
       <HamburgerMenu onClick={() => setIsMenuOpen(!isMenuOpen)} isOpen={isMenuOpen} />
@@ -310,11 +317,28 @@ function App() {
             zIndex: 1001
           }}>
             <Dialog.Title>Welcome to MealFinder!</Dialog.Title>
-            <p>Find your next meal</p>
-            <p>Make sure your location services are enabled</p>
-            <p>Click the dropdown menu of food truck locations, and find the five closest locations at the top</p>
-            <p>It has all of the information you need, and if you click on the marker, you will find a link right to the Google Map directions!</p>
-            <p>Hope this helps, and make sure to leave on time!!!!!!</p>
+            {mode === 'need-help' ? (
+              <>
+                <p>Find your next meal</p>
+                <p>Make sure your location services are enabled</p>
+                <p>Click the dropdown menu of food truck locations, and find the five closest locations at the top</p>
+                <p>It has all of the information you need, and if you click on the marker, you will find a link right to the Google Map directions!</p>
+                <p>Hope this helps, and make sure to leave on time!!!!!!</p>
+              </>
+            ) : (
+              <>
+                <p>Thank you for wanting to help your community!</p>
+                <p>Here you can find various ways to make a difference:</p>
+                <ul style={{ textAlign: 'left', marginLeft: '20px' }}>
+                  <li>Volunteer opportunities at local food banks and shelters</li>
+                  <li>Donation centers accepting food and supplies</li>
+                  <li>Advocacy organizations fighting food insecurity</li>
+                  <li>Support services needing assistance</li>
+                  <li>Community resources seeking helpers</li>
+                </ul>
+                <p>Click on any marker to get more information and directions!</p>
+              </>
+            )}
 
             {/* Toggle Switch in Welcome Popup */}
             <div style={{ marginTop: '15px', marginBottom: '15px', display: 'flex', justifyContent: 'center' }}>
@@ -352,7 +376,12 @@ function App() {
       </div>
 
       <div style={{ position: 'relative', height: '100vh', zIndex: 1 }}>
-        <MapContainer center={center} zoom={13} style={{ height: '100%', width: '100%' }}>
+        <MapContainer 
+          center={center} 
+          zoom={13} 
+          style={{ height: '100%', width: '100%' }}
+          ref={mapRef}
+        >
           <ChangeView center={center} />
           <CenterMapButton userLocation={userLocation} />
           <MoveZoomControl />
@@ -381,7 +410,17 @@ function App() {
                   <p>Route: {location.Route}</p>
                   {location.description && <p>Description: {location.description}</p>}
                   {userLocation && (
-                    <p>Distance: {sortLocationsByDistance([location], userLocation)[0].distance.toFixed(1)} miles</p>
+                    <p>Distance: {sortLocationsByDistance([location], userLocation)[0].distance.toFixed(1)} miles
+                      {sortLocationsByDistance([location], userLocation)[0].distance > 4 && (
+                        <span style={{ 
+                          color: 'red', 
+                          marginLeft: '10px', 
+                          fontWeight: 'bold' 
+                        }}>
+                          Too Far
+                        </span>
+                      )}
+                    </p>
                   )}
                   <a href={location.link} target="_blank" rel="noopener noreferrer">View on Google Maps</a>
                 </div>

@@ -40,6 +40,7 @@ const MenuContent = ({ isOpen, onClose, mode, setMode }) => {
       <div 
         style={{ padding: '10px 0', borderBottom: '1px solid #eee', cursor: 'pointer' }} 
         onClick={() => handleItemClick("About MealFinder", 
+        mode === 'need-help' ? 
         `MealFinder was created to help connect people with food resources across New York City.
 
 The idea originated while volunteering at the Coalition for the Homeless's Grand Central Food Program. One evening, while distributing meals, we ran out of food with over 50 individuals still waiting. Many remained there throughout the night, unaware of other nearby food resources—they went to sleep hungry.
@@ -59,7 +60,30 @@ The app provides:
 • Distance information
 • Additional services available
 
-We're constantly updating our database to provide the most accurate and helpful information possible.`)}
+We're constantly updating our database to provide the most accurate and helpful information possible.` :
+        `MealFinder connects compassionate individuals like you with opportunities to make a real difference in fighting food insecurity across New York City.
+
+Our platform brings together various ways to help:
+• Volunteer at food distribution programs
+• Donate to food banks and pantries
+• Support advocacy initiatives
+• Join community support programs
+• Participate in food rescue missions
+
+Why Your Help Matters:
+• 1.2 million NYC residents face food insecurity
+• 1 in 4 children don't have reliable access to food
+• Food pantries see 65% more visitors than pre-pandemic
+• Many locations need consistent volunteer support
+
+The app helps you:
+• Find nearby volunteer opportunities
+• Locate donation centers
+• Connect with advocacy groups
+• Join support services
+• Engage with community resources
+
+Together, we can make a significant impact in our community.`)}
       >
         About
       </div>
@@ -67,6 +91,7 @@ We're constantly updating our database to provide the most accurate and helpful 
       <div 
         style={{ padding: '10px 0', borderBottom: '1px solid #eee', cursor: 'pointer' }} 
         onClick={() => handleItemClick("FAQs", 
+        mode === 'need-help' ?
         `Frequently Asked Questions:
 
 1. How does MealFinder work?
@@ -107,13 +132,55 @@ We're constantly updating our database to provide the most accurate and helpful 
    • ${createLink("tel:311", "Call 311")} for emergency food assistance
    • ${createLink("tel:866-888-8777", "NYC Emergency Food Line")}: 866-888-8777
    • ${createLink("tel:888-692-9355", "Crisis Services")}: 888-692-9355
-   • ${createLink("sms:877-877?&body=FOOD", "Text 'FOOD' to 877-877")} for summer meals`)}>
+   • ${createLink("sms:877-877?&body=FOOD", "Text 'FOOD' to 877-877")} for summer meals` :
+        `Frequently Asked Questions:
+
+1. How can I help?
+   • Volunteer at food distribution centers
+   • Donate food or supplies
+   • Support advocacy initiatives
+   • Provide professional services
+   • Join community programs
+
+2. What kind of volunteers are needed?
+   • Food preparation and service
+   • Delivery drivers
+   • Pantry organizers
+   • Administrative support
+   • Fundraising assistance
+   • Professional services (legal, medical, social work)
+
+3. What can I donate?
+   • Non-perishable food items
+   • Fresh produce (check with location first)
+   • Personal care items
+   • Baby supplies
+   • Financial contributions
+
+4. Time commitments:
+   • One-time opportunities available
+   • Regular weekly/monthly positions
+   • Flexible scheduling at most locations
+   • Both daytime and evening shifts
+
+5. Getting started:
+   • Click on markers for specific opportunities
+   • Contact organizations directly through provided links
+   • Complete any required training
+   • Sign up for available shifts
+
+6. COVID-19 protocols:
+   • Follow location-specific guidelines
+   • Wear appropriate PPE
+   • Complete health screenings if required
+   • Practice social distancing`)}>
         FAQs
       </div>
 
       <div 
         style={{ padding: '10px 0', borderBottom: '1px solid #eee', cursor: 'pointer' }} 
-        onClick={() => handleItemClick("Help/Donate Now", 
+        onClick={() => handleItemClick(mode === 'need-help' ? "Help/Donate Now" : "Volunteer/Donate", 
+        mode === 'need-help' ?
         `Ways to Help:
 
 1. Coalition for the Homeless
@@ -158,13 +225,76 @@ Additional Resources:
 • ${createLink("https://www.nyc.gov/site/hra/index.page", "NYC Human Resources Administration")}
 • ${createLink("https://www.feedingamerica.org/find-your-local-foodbank", "Find Your Local Food Bank")}
 
-For corporate donations, sponsorships, or large-scale volunteering, please ${createLink("mailto:ethanjonathanlevy@gmail.com", "email us")}.`)}>
-        Help/Donate Now
+For corporate donations, sponsorships, or large-scale volunteering, please ${createLink("mailto:ethanjonathanlevy@gmail.com", "email us")}.` :
+        `Get Involved Today:
+
+Volunteer Opportunities:
+
+1. Food Distribution Programs
+   • ${createLink("https://www.coalitionforthehomeless.org/volunteer/", "Coalition for the Homeless")}
+     - Evening food truck routes
+     - Meal preparation
+     - Food sorting and packing
+   
+2. Food Banks & Pantries
+   • ${createLink("https://www.foodbanknyc.org/volunteer/", "Food Bank For New York City")}
+     - Warehouse operations
+     - Food sorting
+     - Client services
+   
+3. Food Rescue
+   • ${createLink("https://www.cityharvest.org/volunteer/", "City Harvest")}
+     - Food rescue operations
+     - Delivery assistance
+     - Market collection
+
+4. Community Support
+   • ${createLink("https://www.bowery.org/volunteer/", "Bowery Mission")}
+     - Meal service
+     - Clothing distribution
+     - Resource center support
+
+Donation Opportunities:
+
+1. Financial Contributions
+   • ${createLink("https://www.coalitionforthehomeless.org/donate/", "Coalition for the Homeless")}
+   • ${createLink("https://www.foodbanknyc.org/donate/", "Food Bank NYC")}
+   • ${createLink("https://www.cityharvest.org/donate/", "City Harvest")}
+
+2. Food Donations
+   • Non-perishable items
+   • Fresh produce
+   • Bulk donations
+   
+3. Supply Donations
+   • Personal care items
+   • Baby supplies
+   • Winter clothing
+
+4. Professional Services
+   • Legal assistance
+   • Healthcare services
+   • Administrative support
+   • Marketing and outreach
+
+Corporate Partnerships:
+• ${createLink("https://www.foodbanknyc.org/partner/", "Corporate volunteer programs")}
+• Matching gift programs
+• Sponsorship opportunities
+• Food drive organizing
+
+Contact ${createLink("mailto:ethanjonathanlevy@gmail.com", "ethanjonathanlevy@gmail.com")} for:
+• Large group volunteering
+• Corporate partnerships
+• Special initiatives
+• Custom programs`)}>
+        {mode === 'need-help' ? 'Help/Donate Now' : 'Volunteer/Donate'}
       </div>
 
       <div 
         style={{ padding: '10px 0', borderBottom: '1px solid #eee', cursor: 'pointer' }} 
         onClick={() => handleItemClick("Contact", 
+        mode === 'need-help' ?
         `Contact Information:
 
 App Support & General Inquiries:
@@ -186,7 +316,31 @@ Report Issues:
 • Schedule changes
 • New resources to add
 
-Your feedback helps us improve MealFinder and serve our community better.`)}>
+Your feedback helps us improve MealFinder and serve our community better.` :
+        `Contact Information:
+
+Volunteer & Donation Inquiries:
+${createLink("mailto:ethanjonathanlevy@gmail.com", "ethanjonathanlevy@gmail.com")}
+
+Partner Organizations:
+• ${createLink("https://www.coalitionforthehomeless.org/", "Coalition for the Homeless")}
+• ${createLink("https://www.foodbanknyc.org/", "Food Bank For New York City")}
+• ${createLink("https://www.cityharvest.org/", "City Harvest")}
+• ${createLink("https://www.bowery.org/", "Bowery Mission")}
+
+Get Involved:
+• Organization partnerships
+• Corporate volunteering
+• Food drive coordination
+• Special initiatives
+
+Report Updates:
+• New volunteer opportunities
+• Changed schedules
+• Additional resources
+• Program updates
+
+Your involvement helps us expand our impact and serve more people in need.`)}>
         Contact
       </div>
 

@@ -10,13 +10,26 @@ const LocationCard = ({ location, distance, duration, isClose, onViewMap }) => {
     boxShadow: isClose ? '0 0 10px rgba(0, 255, 0, 0.3)' : 'none',
   };
 
+  const isTooFar = distance > 4;
+
   return (
     <div style={cardStyle} className="location-card">
       <h3>{location.Location}</h3>
       <p>Type: {location.type === 'food_truck' ? 'Food Truck' : location.type === 'pantry' ? 'Food Pantry' : 'Shelter'}</p>
       <p>Time: {location.Time}</p>
       <p>Route: {location.Route}</p>
-      <p>Distance: {distance} miles</p>
+      <p>
+        Distance: {distance} miles
+        {isTooFar && (
+          <span style={{ 
+            color: 'red', 
+            marginLeft: '10px', 
+            fontWeight: 'bold' 
+          }}>
+            Too Far
+          </span>
+        )}
+      </p>
       <p>Walking time: ~{duration} minutes (includes 8-minute buffer)</p>
       <button 
         className="view-map-btn"
